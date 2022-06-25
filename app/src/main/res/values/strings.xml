@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Video</string>
+    <string name="tab_text_1">Проводник</string>
+    <string name="tab_text_2">Избранное</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="baseDir">/sdcard/DCIM</string>
+    <string name="ERROR_READING_MESSAGE">Возникла ошибка во время чтения с диска!</string>
+    <string name="default_folder_name">DCIM</string>
+</resources>
