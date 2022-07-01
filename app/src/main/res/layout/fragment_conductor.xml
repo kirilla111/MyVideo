@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tabs.ConductorFragment">
+    tools:context=".activities.tabs.ConductorFragment">
 
     <ScrollView
         android:id="@+id/conductor_scroll_view"

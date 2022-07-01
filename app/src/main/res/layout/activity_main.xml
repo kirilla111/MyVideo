@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.MyVideo.AppBarOverlay">
@@ -22,7 +23,9 @@
                 android:id="@+id/tab_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_text_1" />
+                android:text="@string/tab_text_1">
+
+            </com.google.android.material.tabs.TabItem>
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_2"
@@ -30,11 +33,57 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tab_text_2" />
         </com.google.android.material.tabs.TabLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:padding="@dimen/default_padding"
+            android:paddingLeft="@dimen/appbar_padding">
+
+            <LinearLayout
+                android:id="@+id/layout_tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/appbar_padding"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageButton
+                    android:id="@+id/back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:srcCompat="@android:drawable/ic_menu_revert" />
+
+                <ImageButton
+                    android:id="@+id/return_to_gome_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:srcCompat="@android:drawable/ic_menu_rotate" />
+
+                <ImageButton
+                    android:id="@+id/to_favourite_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:srcCompat="@android:drawable/btn_star" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+    </androidx.viewpager.widget.ViewPager>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

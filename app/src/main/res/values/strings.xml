@@ -7,4 +7,14 @@
     <string name="baseDir">/sdcard/DCIM</string>
     <string name="ERROR_READING_MESSAGE">Возникла ошибка во время чтения с диска!</string>
     <string name="default_folder_name">DCIM</string>
+    <string name="calculating_string">Считаем..</string>
+    <string name="title_activity_video_view">VideoViewActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

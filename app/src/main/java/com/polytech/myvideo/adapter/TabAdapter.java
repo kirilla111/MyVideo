@@ -1,4 +1,7 @@
-package com.polytech.myvideo.tabs;
+package com.polytech.myvideo.adapter;
+
+import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,15 +11,15 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-public class Adapter extends FragmentPagerAdapter {
+public class TabAdapter extends FragmentPagerAdapter {
     private final ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
     private final ArrayList<String> fragmentTitle = new ArrayList<>();
 
-    public Adapter(@NonNull FragmentManager fm) {
+    public TabAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 
-    public Adapter(@NonNull FragmentManager fm, int behavior) {
+    public TabAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 
