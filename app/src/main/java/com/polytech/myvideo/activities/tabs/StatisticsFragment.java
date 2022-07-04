@@ -38,6 +38,7 @@ public class StatisticsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_statistics, container, false);
+        progressBar.setVisibility(View.VISIBLE);
         statisticLayout = rootView.findViewById(R.id.statistics_linear_layout);
         totalTime_tv = rootView.findViewById(R.id.totalTime_tv);
         totalWatched_tv = rootView.findViewById(R.id.totalWatched_tv);
@@ -52,10 +53,12 @@ public class StatisticsFragment extends Fragment {
         maxSession_tv.setText(maxSessionText);
         totalTime_tv.setText(totalTimeText);
         totalWatched_tv.setText(totalVideoWatchedText);
+        progressBar.setVisibility(View.INVISIBLE);
         return rootView;
     }
 
     private void setStatisticsLayout() {
+        progressBar.setVisibility(View.VISIBLE);
         statisticLayout.removeAllViews();
         ArrayList<StatisticsDto> statisticsDtos = ComponentFactory.getDbHelper().getStatisticsData();
 
@@ -63,6 +66,7 @@ public class StatisticsFragment extends Fragment {
             StatisticsItem item = new StatisticsItem(rootView.getContext(), dto);
             statisticLayout.addView(item);
         }
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     private String parseTime(long timeInSec) {
