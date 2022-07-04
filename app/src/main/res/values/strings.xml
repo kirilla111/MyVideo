@@ -2,7 +2,6 @@
     <string name="app_name">My Video</string>
     <string name="tab_text_1">Проводник</string>
     <string name="tab_text_2">Избранное</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="baseDir">/sdcard/DCIM</string>
     <string name="ERROR_READING_MESSAGE">Возникла ошибка во время чтения с диска!</string>
@@ -14,8 +13,13 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="history_tab_text">История</string>
+    <string name="tab_statistics_title">Статистика</string>
+    <string name="dateEndFormat">Дата конца сессии: %s</string>
+    <string name="dateStartFormat">Дата начала сессии: %s</string>
+    <string name="watchedTotal">Просмотрено %s различных видео</string>
+    <string name="timeWatchedTotal">Время в приложении: %s</string>
+    <string name="recordSession">Рекордная сессия: %s</string>
 </resources>

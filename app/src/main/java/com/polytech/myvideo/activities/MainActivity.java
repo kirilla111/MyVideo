@@ -3,7 +3,6 @@ package com.polytech.myvideo.activities;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.OrientationEventListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -19,13 +18,12 @@ import com.polytech.myvideo.R;
 import com.polytech.myvideo.activities.tabs.ConductorFragment;
 import com.polytech.myvideo.activities.tabs.FavoritesFragment;
 import com.polytech.myvideo.activities.tabs.HistoryFragment;
+import com.polytech.myvideo.activities.tabs.StatisticsFragment;
 import com.polytech.myvideo.adapter.FileUIAdapter;
 import com.polytech.myvideo.adapter.TabAdapter;
-import com.polytech.myvideo.adapter.Utils;
 import com.polytech.myvideo.listeners.AddToFavouriteClickListener;
 import com.polytech.myvideo.listeners.BackClickListener;
 import com.polytech.myvideo.listeners.BackToBaseDirClickListener;
-import com.polytech.myvideo.listeners.MyOrientationEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         tabAdapter.addFragment(new ConductorFragment(layoutTools, progressBar), getString(R.string.tab_text_1));
         tabAdapter.addFragment(new FavoritesFragment(layoutTools, progressBar), getString(R.string.tab_text_2));
         tabAdapter.addFragment(new HistoryFragment(layoutTools, progressBar), getString(R.string.history_tab_text));
+        tabAdapter.addFragment(new StatisticsFragment(layoutTools, progressBar), getString(R.string.tab_statistics_title));
         viewPager.setAdapter(tabAdapter);
 
         FileUIAdapter adapter = ComponentFactory.getConductorFileUIAdapter();
@@ -64,9 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         toFavouriteButton.setOnClickListener(new AddToFavouriteClickListener(adapter.currentDir, adapter, toFavouriteButton));
-
-        OrientationEventListener orientationEventListener = new MyOrientationEventListener(this);
-        orientationEventListener.enable();
+        ComponentFactory.getDbHelper().startStoreStatistics();
     }
 
     private void askForPermissions() {
@@ -79,5 +76,12 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{
                             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 44);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ComponentFactory.getDbHelper().storeStatistics();
+        ComponentFactory.getDbHelper().startStoreStatistics();
     }
 }
