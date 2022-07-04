@@ -1,9 +1,12 @@
 package com.polytech.myvideo.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.polytech.myvideo.ComponentFactory;
 import com.polytech.myvideo.activities.components.FileItem;
 import com.polytech.myvideo.db.FavouriteDto;
 
@@ -18,10 +21,13 @@ public class FileUIAdapter {
     public String basePath;
     private LinearLayout fileLayout;
     private Context context;
+    private ProgressBar progressBar;
 
-    public void setConductorFileItems(Context context, LinearLayout fileLayout, File[] files) {
+    public void setConductorFileItems(Context context, LinearLayout fileLayout, File[] files, ProgressBar progressBar) {
         this.fileLayout = fileLayout;
         this.context = context;
+        this.progressBar = progressBar;
+        progressBar.setVisibility(View.VISIBLE);
 
         if (files.length > 0) {
             basePath = files[0].getParentFile().getPath();
@@ -35,9 +41,12 @@ public class FileUIAdapter {
             FileItem item = new FileItem(context, file, this);
             fileLayout.addView(item);
         }
+
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public void push(String absolutePath) {
+        progressBar.setVisibility(View.VISIBLE);
         FileUIAdapter self = this;
         File dir = new File(absolutePath);
         currentDir = dir;
@@ -47,17 +56,14 @@ public class FileUIAdapter {
         synchronized (this) {
             this.notify();
         }
-        fileLayout.post(new Runnable() {
-            public void run() {
-                for (File file : Utils.filtredFileList(dir.listFiles())) {
-                    FileItem item = new FileItem(context, file, self);
-                    fileLayout.addView(item);
-                }
-                if (fileLayout.getChildCount() == 0) {
-                    Toast.makeText(context, "Поддерживаемых медиа файлов не обнаружено", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        for (File file : Utils.filtredFileList(dir.listFiles())) {
+            FileItem item = new FileItem(context, file, self);
+            fileLayout.addView(item);
+        }
+        if (fileLayout.getChildCount() == 0) {
+            Toast.makeText(context, "Поддерживаемых медиа файлов не обнаружено", Toast.LENGTH_LONG).show();
+        }
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public void pushBaseDir() {
@@ -75,14 +81,26 @@ public class FileUIAdapter {
         push(path);
     }
 
-    public void setFavouriteFileItems(Context context, LinearLayout fileLayout, ArrayList<FavouriteDto> dtos) {
+    public void setFileItemsByDto(Context context, LinearLayout fileLayout, ArrayList<FavouriteDto> dtos, ProgressBar progressBar) {
+        this.progressBar = progressBar;
+        progressBar.setVisibility(View.VISIBLE);
         this.fileLayout = fileLayout;
         this.context = context;
         fileLayout.removeAllViews();
 
         for (FavouriteDto dto : dtos) {
-            FileItem item = new FileItem(context, dto, this);
+            FileItem item = new FileItem(context, dto, FileUIAdapter.this);
+            item.setOnLongClickListener((view) -> {
+                fileLayout.removeView(view);
+                ComponentFactory.getDbHelper().removeFavourite(dto.getId());
+                Toast.makeText(context, "Удалено!", Toast.LENGTH_LONG).show();
+                return true;
+            });
             fileLayout.addView(item);
         }
+        if (fileLayout.getChildCount() == 0) {
+            Toast.makeText(context, "Вы еще не добавили ничего в избранное!", Toast.LENGTH_LONG).show();
+        }
+        progressBar.setVisibility(View.INVISIBLE);
     }
 }

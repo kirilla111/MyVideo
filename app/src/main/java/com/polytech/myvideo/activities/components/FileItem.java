@@ -34,11 +34,15 @@ public class FileItem extends ConstraintLayout {
         fileName.setText(file.getName());
         fileInfo.setText(R.string.calculating_string);
 
-        fileInfo.post(new Runnable() {
-            public void run() {
-                fileInfo.setText(Utils.getTotalFiles(file));
-            }
-        });
+        new Thread(() -> {
+            String total = Utils.getTotalFiles(file);
+            fileInfo.post(new Runnable() {
+                public void run() {
+                    fileInfo.setText(total);
+                }
+            });
+        }).start();
+
         setFileConfig(file, fileUIAdapter);
     }
 
@@ -55,12 +59,40 @@ public class FileItem extends ConstraintLayout {
         fileName.setText(dto.getName());
         fileInfo.setText(R.string.calculating_string);
 
-        fileInfo.post(new Runnable() {
-            public void run() {
-                fileInfo.setText(Utils.getTotalFiles(file));
-            }
-        });
+        new Thread(() -> {
+            String total = Utils.getTotalFiles(file);
+            fileInfo.post(new Runnable() {
+                public void run() {
+                    fileInfo.setText(total);
+                }
+            });
+        }).start();
         setFileConfig(file, fileUIAdapter);
+    }
+
+    public FileItem(Context context, FavouriteDto dto) {
+        super(context);
+        inflate(context, R.layout.file_item, this);
+
+        File file = new File(dto.getPath());
+        fileInfo = findViewById(R.id.add_file_info_tv);
+        fileName = findViewById(R.id.file_name_tv);
+        fileImg = findViewById(R.id.file_img);
+        isVideoFile = isFile(dto.getName());
+
+        fileName.setText(dto.getName());
+        fileInfo.setText(R.string.calculating_string);
+
+        new Thread(() -> {
+            String total = Utils.getTotalFiles(file);
+            fileInfo.post(new Runnable() {
+                public void run() {
+                    fileInfo.setText(total);
+                }
+            });
+        }).start();
+        fileImg.setImageResource(R.drawable.file);
+        setOnClickListener(new FileClickListener(file));
     }
 
     private boolean isFile(String name) {

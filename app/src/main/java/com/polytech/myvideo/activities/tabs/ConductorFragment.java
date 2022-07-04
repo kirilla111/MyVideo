@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,9 +25,11 @@ public class ConductorFragment extends Fragment {
     private FileUIAdapter fileUIAdapter = ComponentFactory.getConductorFileUIAdapter();
     private View rootView;
     private LinearLayout layoutTools;
+    private ProgressBar progressBar;
 
-    public ConductorFragment(LinearLayout layoutTools) {
+    public ConductorFragment(LinearLayout layoutTools, ProgressBar progressBar) {
         this.layoutTools = layoutTools;
+        this.progressBar = progressBar;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class ConductorFragment extends Fragment {
         LinearLayout fileLayout = rootView.findViewById(R.id.conductor_linear_layout);
 
         File[] files = Utils.readBaseDir();
-        fileUIAdapter.setConductorFileItems(getContext(), fileLayout, files);
+        fileLayout.post(() ->fileUIAdapter.setConductorFileItems(getContext(), fileLayout, files, progressBar));
 
 
         return rootView;

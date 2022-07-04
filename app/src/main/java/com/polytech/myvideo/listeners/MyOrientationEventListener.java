@@ -33,6 +33,7 @@ public class MyOrientationEventListener extends OrientationEventListener {
     }
 
     private void setVisibility(int visibility) {
+        if (viewsToBeGone == null) return;
         for (View view : viewsToBeGone) {
             view.setVisibility(visibility);
         }

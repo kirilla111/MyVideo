@@ -56,5 +56,7 @@ public class VideoViewActivity extends AppCompatActivity {
 
         orientationEventListener = new MyOrientationEventListener(this, contentLnearLayout);
         orientationEventListener.enable();
+
+        ComponentFactory.getDbHelper().addNewHistory(file.getName(), file.getAbsolutePath());
     }
 }

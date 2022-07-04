@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.OrientationEventListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -17,6 +18,7 @@ import com.polytech.myvideo.ComponentFactory;
 import com.polytech.myvideo.R;
 import com.polytech.myvideo.activities.tabs.ConductorFragment;
 import com.polytech.myvideo.activities.tabs.FavoritesFragment;
+import com.polytech.myvideo.activities.tabs.HistoryFragment;
 import com.polytech.myvideo.adapter.FileUIAdapter;
 import com.polytech.myvideo.adapter.TabAdapter;
 import com.polytech.myvideo.adapter.Utils;
@@ -31,26 +33,29 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ImageButton toBaseDirButton, backButton, toFavouriteButton;
     private LinearLayout layoutTools;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         askForPermissions();
         ComponentFactory.createDbHelper(this);
         ComponentFactory.getDbHelper().readAllData();
-        setContentView(R.layout.activity_main);
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.view_pager);
         toBaseDirButton = findViewById(R.id.return_to_gome_button);
         backButton = findViewById(R.id.back_button);
         toFavouriteButton = findViewById(R.id.to_favourite_button);
         layoutTools = findViewById(R.id.layout_tools);
+        progressBar = findViewById(R.id.progressBar);
 
         tabLayout.setupWithViewPager(viewPager);
         TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        tabAdapter.addFragment(new ConductorFragment(layoutTools), getString(R.string.tab_text_1));
-        tabAdapter.addFragment(new FavoritesFragment(layoutTools), getString(R.string.tab_text_2));
+        tabAdapter.addFragment(new ConductorFragment(layoutTools, progressBar), getString(R.string.tab_text_1));
+        tabAdapter.addFragment(new FavoritesFragment(layoutTools, progressBar), getString(R.string.tab_text_2));
+        tabAdapter.addFragment(new HistoryFragment(layoutTools, progressBar), getString(R.string.history_tab_text));
         viewPager.setAdapter(tabAdapter);
 
         FileUIAdapter adapter = ComponentFactory.getConductorFileUIAdapter();

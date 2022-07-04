@@ -13,12 +13,8 @@ import static android.content.ContentValues.TAG;
 public class Utils {
 
     public static File[] readBaseDir() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            File baseDir = Environment.getExternalStorageDirectory();
-            return baseDir.listFiles();
-        } else {
-            throw new Resources.NotFoundException();
-        }
+        File baseDir = Environment.getExternalStorageDirectory();
+        return baseDir.listFiles();
     }
 
     public static void setToFavouriteButtonImage(boolean isFavourite, ImageButton imageButton) {
