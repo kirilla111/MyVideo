@@ -22,4 +22,5 @@
     <string name="watchedTotal">Просмотрено %s различных видео</string>
     <string name="timeWatchedTotal">Время в приложении: %s</string>
     <string name="recordSession">Рекордная сессия: %s</string>
+    <string name="Search_string">Поиск</string>
 </resources>

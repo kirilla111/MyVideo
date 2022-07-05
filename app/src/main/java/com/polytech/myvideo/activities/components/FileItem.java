@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.polytech.myvideo.R;
 import com.polytech.myvideo.adapter.FileUIAdapter;
 import com.polytech.myvideo.adapter.Utils;
-import com.polytech.myvideo.db.FavouriteDto;
+import com.polytech.myvideo.db.dto.FavouriteDto;
 import com.polytech.myvideo.listeners.DirClickListener;
 import com.polytech.myvideo.listeners.FileClickListener;
 
@@ -23,6 +23,9 @@ public class FileItem extends ConstraintLayout {
     private ImageView fileImg;
     private boolean isVideoFile;
 
+    /**
+     * Конструктор для проводника
+     */
     public FileItem(@NonNull Context context, File file, FileUIAdapter fileUIAdapter) {
         super(context);
         inflate(context, R.layout.file_item, this);
@@ -46,6 +49,9 @@ public class FileItem extends ConstraintLayout {
         setFileConfig(file, fileUIAdapter);
     }
 
+    /**
+     * Конструктор для избранного
+     */
     public FileItem(Context context, FavouriteDto dto, FileUIAdapter fileUIAdapter) {
         super(context);
         inflate(context, R.layout.file_item, this);
@@ -70,6 +76,9 @@ public class FileItem extends ConstraintLayout {
         setFileConfig(file, fileUIAdapter);
     }
 
+    /**
+     * Конструктор для истории
+     */
     public FileItem(Context context, FavouriteDto dto) {
         super(context);
         inflate(context, R.layout.file_item, this);
@@ -107,5 +116,9 @@ public class FileItem extends ConstraintLayout {
             fileImg.setImageResource(R.drawable.folder);
             setOnClickListener(new DirClickListener(adapter, file));
         }
+    }
+
+    public CharSequence getFileName(){
+        return fileName.getText();
     }
 }

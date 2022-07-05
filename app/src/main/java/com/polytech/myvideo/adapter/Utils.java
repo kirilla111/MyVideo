@@ -6,11 +6,13 @@ import android.util.Log;
 import android.widget.ImageButton;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 
 import static android.content.ContentValues.TAG;
 
 public class Utils {
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static File[] readBaseDir() {
         File baseDir = Environment.getExternalStorageDirectory();

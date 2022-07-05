@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -16,7 +17,8 @@ import com.polytech.myvideo.ComponentFactory;
 import com.polytech.myvideo.R;
 import com.polytech.myvideo.adapter.FileUIAdapter;
 import com.polytech.myvideo.db.DbHelper;
-import com.polytech.myvideo.db.FavouriteDto;
+import com.polytech.myvideo.db.dto.FavouriteDto;
+import com.polytech.myvideo.listeners.SearchTextWatcher;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,7 @@ public class FavoritesFragment extends Fragment {
     private View rootView;
     private FloatingActionButton backButton;
     private ProgressBar progressBar;
+    private EditText search;
 
     public FavoritesFragment(LinearLayout layoutTools, ProgressBar progressBar) {
         this.layoutTools = layoutTools;
@@ -39,8 +42,10 @@ public class FavoritesFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_favorites, container, false);
         fileLayout = rootView.findViewById(R.id.history_linear_layout);
         backButton = rootView.findViewById(R.id.favourite_back_button);
+        search = rootView.findViewById(R.id.favourite_search_tv);
 
-        backButton.setOnClickListener((view) ->{
+        search.addTextChangedListener(new SearchTextWatcher(fileLayout));
+        backButton.setOnClickListener((view) -> {
             setFavourite();
         });
         backButton.bringToFront();

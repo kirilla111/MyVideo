@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
-import com.polytech.myvideo.db.FavouriteDto;
+import com.polytech.myvideo.adapter.Utils;
+import com.polytech.myvideo.db.dto.HistoryDto;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class HistoryTableCreationScript implements Script {
@@ -15,13 +17,15 @@ public class HistoryTableCreationScript implements Script {
     private static final String HISTORY_COLUMN_ID = "_id";
     private static final String HISTORY_COLUMN_NAME = "file_name";
     private static final String HISTORY_COLUMN_PATH = "file_path";
+    private static final String HISTORY_COLUMN_DATE = "date";
 
     @Override
     public void create(SQLiteDatabase db) {
         String query = "CREATE TABLE " + HISTORY_TABLE_NAME +
                 " (" + HISTORY_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 HISTORY_COLUMN_NAME + " TEXT, " +
-                HISTORY_COLUMN_PATH + " TEXT);";
+                HISTORY_COLUMN_PATH + " TEXT, " +
+                HISTORY_COLUMN_DATE + " TEXT);";
         db.execSQL(query);
     }
 
@@ -30,15 +34,15 @@ public class HistoryTableCreationScript implements Script {
         db.execSQL("DROP TABLE IF EXISTS " + HISTORY_TABLE_NAME);
     }
 
-    public ArrayList<FavouriteDto> readHistory(SQLiteDatabase db) {
+    public ArrayList<HistoryDto> readHistory(SQLiteDatabase db) {
         String query = "SELECT * FROM " + HISTORY_TABLE_NAME + " ORDER BY " + HISTORY_COLUMN_ID + " DESC";
 
         Cursor cursor = null;
         if (db != null) {
             cursor = db.rawQuery(query, null);
-            ArrayList<FavouriteDto> history = new ArrayList<>();
+            ArrayList<HistoryDto> history = new ArrayList<>();
             while (cursor.moveToNext()) {
-                history.add(new FavouriteDto(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                history.add(new HistoryDto(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
             }
             return history;
         }
@@ -52,6 +56,7 @@ public class HistoryTableCreationScript implements Script {
 
         cv.put(HISTORY_COLUMN_NAME, fileName);
         cv.put(HISTORY_COLUMN_PATH, path);
+        cv.put(HISTORY_COLUMN_DATE,  Utils.DATE_FORMAT.format(new Timestamp(System.currentTimeMillis())));
 
         long result = db.insert(HISTORY_TABLE_NAME, null, cv);
 

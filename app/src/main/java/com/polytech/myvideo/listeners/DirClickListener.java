@@ -2,6 +2,8 @@ package com.polytech.myvideo.listeners;
 
 import android.view.View;
 
+import com.polytech.myvideo.R;
+import com.polytech.myvideo.activities.components.FileItem;
 import com.polytech.myvideo.adapter.FileUIAdapter;
 
 import java.io.File;

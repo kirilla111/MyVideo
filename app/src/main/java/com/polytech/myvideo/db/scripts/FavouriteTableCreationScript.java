@@ -4,14 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.polytech.myvideo.db.FavouriteDto;
+import com.polytech.myvideo.db.dto.FavouriteDto;
 
 import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
 
 public class FavouriteTableCreationScript implements Script {
     private static final String TABLE_NAME = "favourite";

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -14,8 +15,11 @@ import android.widget.Toast;
 import com.polytech.myvideo.ComponentFactory;
 import com.polytech.myvideo.R;
 import com.polytech.myvideo.activities.components.FileItem;
+import com.polytech.myvideo.activities.components.HistoryFileItem;
 import com.polytech.myvideo.adapter.FileUIAdapter;
-import com.polytech.myvideo.db.FavouriteDto;
+import com.polytech.myvideo.db.dto.FavouriteDto;
+import com.polytech.myvideo.db.dto.HistoryDto;
+import com.polytech.myvideo.listeners.SearchTextWatcher;
 
 public class HistoryFragment extends Fragment {
     private LinearLayout fileLayout;
@@ -23,6 +27,7 @@ public class HistoryFragment extends Fragment {
     private ProgressBar progressBar;
     private LinearLayout layoutTools;
     private FileUIAdapter adapter = new FileUIAdapter();
+    private EditText search;
 
     public HistoryFragment(LinearLayout layoutTools, ProgressBar progressBar) {
         this.progressBar = progressBar;
@@ -34,6 +39,8 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_history, container, false);
         fileLayout = rootView.findViewById(R.id.history_linear_layout);
+        search = rootView.findViewById(R.id.history_search_tv);
+        search.addTextChangedListener(new SearchTextWatcher(fileLayout));
 
         return rootView;
     }
@@ -48,8 +55,8 @@ public class HistoryFragment extends Fragment {
     private void setHistory() {
         fileLayout.removeAllViews();
 
-        for (FavouriteDto dto : ComponentFactory.getDbHelper().readHistory()) {
-            FileItem item = new FileItem(rootView.getContext(), dto);
+        for (HistoryDto dto : ComponentFactory.getDbHelper().readHistory()) {
+            HistoryFileItem item = new HistoryFileItem(rootView.getContext(), dto);
             item.setOnLongClickListener((view) -> {
                 fileLayout.removeView(view);
                 ComponentFactory.getDbHelper().removeFromHistory(dto.getId());

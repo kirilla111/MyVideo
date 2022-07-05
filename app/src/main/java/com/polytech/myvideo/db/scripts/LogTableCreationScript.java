@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.polytech.myvideo.adapter.Utils;
 import com.polytech.myvideo.db.StatisticsDto;
 
 import java.sql.Timestamp;
@@ -18,7 +19,7 @@ public class LogTableCreationScript implements Script {
     private static final String LOG_ENTER_DATE_TIME = "enter_date";
     private static final String LOG_EXIT_DATE_TIME = "exit_date";
 
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
     private Timestamp enterDateTime;
     private Timestamp exitDateTime;
@@ -45,8 +46,8 @@ public class LogTableCreationScript implements Script {
         exitDateTime = new Timestamp(System.currentTimeMillis());
 
         ContentValues cv = new ContentValues();
-        cv.put(LOG_ENTER_DATE_TIME, sdf.format(enterDateTime));
-        cv.put(LOG_EXIT_DATE_TIME, sdf.format(exitDateTime));
+        cv.put(LOG_ENTER_DATE_TIME, Utils.DATE_FORMAT.format(enterDateTime));
+        cv.put(LOG_EXIT_DATE_TIME, Utils.DATE_FORMAT.format(exitDateTime));
         db.insert(LOG_TABLE_NAME, null, cv);
     }
 
@@ -70,8 +71,8 @@ public class LogTableCreationScript implements Script {
         long maxTime = 0;
         for (StatisticsDto dto : statisticsDtos) {
             try {
-                Date startDate = sdf.parse(dto.getStartDate());
-                Date endDate = sdf.parse(dto.getEndDate());
+                Date startDate = Utils.DATE_FORMAT.parse(dto.getStartDate());
+                Date endDate = Utils.DATE_FORMAT.parse(dto.getEndDate());
                 long time = endDate.getTime() - startDate.getTime();
 
                 if (time>maxTime){
@@ -90,8 +91,8 @@ public class LogTableCreationScript implements Script {
         long totalTime = 0;
         for (StatisticsDto dto : statisticsDtos) {
             try {
-                Date startDate = sdf.parse(dto.getStartDate());
-                Date endDate = sdf.parse(dto.getEndDate());
+                Date startDate = Utils.DATE_FORMAT.parse(dto.getStartDate());
+                Date endDate = Utils.DATE_FORMAT.parse(dto.getEndDate());
                 long time = endDate.getTime() - startDate.getTime();
                 totalTime += time;
             } catch (ParseException e) {

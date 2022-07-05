@@ -4,11 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/default_padding"
     tools:context=".activities.tabs.FavoritesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/favourite_search_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:ems="10"
+            android:hint="Поиск"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/favourite_back_button"
@@ -28,13 +45,13 @@
 
         <ScrollView
             android:id="@+id/history_scroll_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:padding="@dimen/appbar_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/favourite_search_tv">
 
             <LinearLayout
                 android:id="@+id/history_linear_layout"
@@ -42,7 +59,9 @@
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
                 android:gravity="center"
-                android:orientation="vertical" />
+                android:orientation="vertical">
+
+            </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

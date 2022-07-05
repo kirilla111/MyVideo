@@ -4,11 +4,12 @@ import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.polytech.myvideo.ComponentFactory;
 import com.polytech.myvideo.activities.components.FileItem;
-import com.polytech.myvideo.db.FavouriteDto;
+import com.polytech.myvideo.db.dto.FavouriteDto;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class FileUIAdapter {
     public static String[] SUPPORTED_MEDIA_TYPES = {".mp4", ".avi", ".mkv"};
 
     public String currentPath;
+    public TextView path_tv;
     public File currentDir;
     public String basePath;
     private LinearLayout fileLayout;
@@ -28,7 +30,6 @@ public class FileUIAdapter {
         this.context = context;
         this.progressBar = progressBar;
         progressBar.setVisibility(View.VISIBLE);
-
         if (files.length > 0) {
             basePath = files[0].getParentFile().getPath();
             currentDir = files[0].getParentFile();
@@ -36,6 +37,7 @@ public class FileUIAdapter {
                 this.notify();
             }
         }
+        path_tv.setText(basePath);
 
         for (File file : Utils.filtredFileList(files)) {
             FileItem item = new FileItem(context, file, this);
@@ -52,7 +54,7 @@ public class FileUIAdapter {
         currentDir = dir;
         currentPath = absolutePath;
         fileLayout.removeAllViews();
-
+        path_tv.setText(currentPath);
         synchronized (this) {
             this.notify();
         }

@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.polytech.myvideo.db.dto.FavouriteDto;
+import com.polytech.myvideo.db.dto.HistoryDto;
 import com.polytech.myvideo.db.scripts.FavouriteTableCreationScript;
 import com.polytech.myvideo.db.scripts.HistoryTableCreationScript;
 import com.polytech.myvideo.db.scripts.LogTableCreationScript;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 
 public class DbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "MyVideo.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 7;
 
     private final FavouriteTableCreationScript favouriteScript = new FavouriteTableCreationScript();
     private final LogTableCreationScript logScript = new LogTableCreationScript();
@@ -62,7 +64,7 @@ public class DbHelper extends SQLiteOpenHelper {
         favouriteScript.removeFavourite(db, id);
     }
 
-    public ArrayList<FavouriteDto> readHistory() {
+    public ArrayList<HistoryDto> readHistory() {
         SQLiteDatabase db = this.getReadableDatabase();
         return historyScript.readHistory(db);
     }
