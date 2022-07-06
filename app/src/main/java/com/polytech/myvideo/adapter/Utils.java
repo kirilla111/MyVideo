@@ -40,12 +40,12 @@ public class Utils {
     }
 
     public static long folderFilesSum(File directory) {
-        int sum = 1;
+        int sum = 0;
         for (File file : directory.listFiles()) {
             if (file.isFile())
                 sum += 1;
             else
-                sum += folderFilesSum(file);
+                sum += folderFilesSum(file) + 1;
         }
         return sum;
     }
@@ -54,7 +54,6 @@ public class Utils {
         LinkedList<File> fileLinkedList = new LinkedList<>();
         try {
             for (File file : files) {
-//                Log.d(TAG, " " + file.getName());
                 if (file.isDirectory() || fileIsSupported(file)) fileLinkedList.add(file);
             }
             return fileLinkedList;

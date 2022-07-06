@@ -37,18 +37,9 @@ public class AddToFavouriteClickListener extends Thread implements View.OnClickL
     }
 
     public void run() {
-        setFavouriteForRoot();
+        updateFavourite();
         while (true) {
-            try {
-                synchronized (adapter) {
-                    adapter.wait();
-                    file = adapter.currentDir;
-                    isFavourite = false;
-                    setFavourite();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            updateFavourite();
         }
     }
 
@@ -57,11 +48,12 @@ public class AddToFavouriteClickListener extends Thread implements View.OnClickL
     }
 
 
-    private void setFavouriteForRoot() {
+    private void updateFavourite() {
         synchronized (adapter) {
             try {
                 adapter.wait();
                 file = adapter.currentDir;
+                isFavourite = getFavourite();
                 setFavourite();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -87,6 +79,7 @@ public class AddToFavouriteClickListener extends Thread implements View.OnClickL
     private void setFavourite(ImageButton imageButton) {
         if (isFavourite) {
             imageButton.setImageResource(android.R.drawable.btn_star_big_off);
+            ComponentFactory.getDbHelper().removeFavouriteByPath(file.getAbsolutePath());
         } else {
             imageButton.setImageResource(android.R.drawable.btn_star_big_on);
             ComponentFactory.getDbHelper().addFavourite(file.getName(), file.getAbsolutePath());

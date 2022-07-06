@@ -54,7 +54,7 @@ public class FileUIAdapter {
         currentDir = dir;
         currentPath = absolutePath;
         fileLayout.removeAllViews();
-        path_tv.setText(currentPath);
+        if (path_tv != null) path_tv.setText(currentPath);
         synchronized (this) {
             this.notify();
         }

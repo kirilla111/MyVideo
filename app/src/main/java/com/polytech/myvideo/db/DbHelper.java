@@ -65,6 +65,11 @@ public class DbHelper extends SQLiteOpenHelper {
         favouriteScript.removeFavourite(db, id);
     }
 
+    public void removeFavouriteByPath(String path) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        favouriteScript.removeFavouriteByPath(db, path);
+    }
+
     public ArrayList<HistoryDto> readHistory() {
         SQLiteDatabase db = this.getReadableDatabase();
         return historyScript.readHistory(db);

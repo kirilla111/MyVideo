@@ -79,4 +79,8 @@ public class FavouriteTableCreationScript implements Script {
     public void removeFavourite(SQLiteDatabase db, String id) {
         db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = " + id);
     }
+
+    public void removeFavouriteByPath(SQLiteDatabase db, String path) {
+        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_FILE_PATH + " = '" + path + "'");
+    }
 }
