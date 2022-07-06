@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.polytech.myvideo.db.dto.FavouriteDto;
 import com.polytech.myvideo.db.dto.HistoryDto;
+import com.polytech.myvideo.db.dto.StatisticsDto;
 import com.polytech.myvideo.db.scripts.FavouriteTableCreationScript;
 import com.polytech.myvideo.db.scripts.HistoryTableCreationScript;
 import com.polytech.myvideo.db.scripts.LogTableCreationScript;

@@ -1,4 +1,4 @@
-package com.polytech.myvideo.db;
+package com.polytech.myvideo.db.dto;
 
 public class StatisticsDto {
     private String id;

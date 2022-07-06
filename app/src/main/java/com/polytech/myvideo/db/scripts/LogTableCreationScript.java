@@ -5,11 +5,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.polytech.myvideo.adapter.Utils;
-import com.polytech.myvideo.db.StatisticsDto;
+import com.polytech.myvideo.db.dto.StatisticsDto;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,8 +17,6 @@ public class LogTableCreationScript implements Script {
     private static final String LOG_COLUMN_ID = "_id";
     private static final String LOG_ENTER_DATE_TIME = "enter_date";
     private static final String LOG_EXIT_DATE_TIME = "exit_date";
-
-
 
     private Timestamp enterDateTime;
     private Timestamp exitDateTime;

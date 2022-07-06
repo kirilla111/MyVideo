@@ -43,7 +43,6 @@ public class AddToFavouriteClickListener extends Thread implements View.OnClickL
                 synchronized (adapter) {
                     adapter.wait();
                     file = adapter.currentDir;
-                    // добавить бд
                     isFavourite = false;
                     setFavourite();
                 }

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.polytech.myvideo.ComponentFactory;
 import com.polytech.myvideo.R;
 import com.polytech.myvideo.activities.components.StatisticsItem;
-import com.polytech.myvideo.db.StatisticsDto;
+import com.polytech.myvideo.db.dto.StatisticsDto;
 
 import java.util.ArrayList;
 

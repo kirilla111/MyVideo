@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.polytech.myvideo.R;
-import com.polytech.myvideo.db.StatisticsDto;
+import com.polytech.myvideo.db.dto.StatisticsDto;
 
 public class StatisticsItem extends ConstraintLayout {
     private TextView start_tv;
